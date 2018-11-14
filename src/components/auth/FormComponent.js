@@ -46,40 +46,15 @@ export class FormComponent extends Component {
 
 
   render() {
-    const password = (this.props.registration ? (
-      <div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <Input
-            type="password"
-            name="password"
-            className="form-control"
-            validations={[Validation.required]}
-            value={this.state.password}
-            onChange={this.handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Confirm your password</label>
-          <Input
-            type="password"
-            name="passwordConfirmation"
-            className="form-control"
-            validations={[Validation.required, Validation.passwordConfirmation]}
-            value={this.state.passwordConfirmation}
-            onChange={this.handleInputChange}
-          />
-        </div>
-      </div>
-    ) : (
+    const password = (
       <div className="form-group">
         <label htmlFor="password">Password</label>
-        <Link
+        {/**<Link
           to="/forgot"
           className="pull-right"
         >
           Forgot password ?
-        </Link>
+        </Link>*/}
         <Input
           type="password"
           name="password"
@@ -89,36 +64,9 @@ export class FormComponent extends Component {
           onChange={this.handleInputChange}
         />
       </div>
-    ));
+    );
 
-    const buttons = (this.props.registration ? (
-      <div className="clearfix">
-        <div>
-          <Button
-            className="btn btn-primary btn-block"
-            type="submit"
-          >
-            {(this.props.registrationStatus && !Object.keys(this.props.registrationStatus).length ? (
-              (<Spinner className="spinner" name='circle' color='white'/>)
-            ) : (
-              <div>
-                <i className="fa fa-user-plus" />
-                &nbsp;
-                Sign up
-              </div>
-            ))}
-          </Button>
-        </div>
-        <br />
-        <Link
-          to={this.props.awsToken ? "/login/aws/" + this.props.awsToken : "/login"}
-        >
-          Already have an account ? Sign in here.
-        </Link>
-
-
-      </div>
-    ) : (
+    const buttons = (
       <div className="clearfix">
         <div>
           <Button
@@ -136,14 +84,14 @@ export class FormComponent extends Component {
             ))}
           </Button>
         </div>
-        <br />
+        {/**<br />
         <Link
           to={this.props.awsToken ? "/register/aws/" + this.props.awsToken : "/register"}
         >
           Don't have an account ? Register here.
-        </Link>
+        </Link>*/}
       </div>
-    ));
+    );
 
     let error;
     if (!this.props.registration) {
@@ -154,14 +102,6 @@ export class FormComponent extends Component {
       error = (this.props.registrationStatus && this.props.registrationStatus.hasOwnProperty("error") ? (
         <div className="alert alert-warning">{this.props.registrationStatus.error}</div>
       ): "");
-    }
-
-    let success;
-    if (this.props.registrationStatus && this.props.registrationStatus.status) {
-      success = <div className="alert alert-success">
-        <strong>Success : </strong>
-        Your registration was successful. You may now <Link to={`/login/${encodeURIComponent(this.state.email)}`}>Sign in</Link>.
-      </div>;
     }
 
     const timeout = (this.props.timeout ? (
@@ -185,7 +125,6 @@ export class FormComponent extends Component {
 
               {error}
               {timeout}
-              {success}
 
               <Form
                 onSubmit={this.submit}>
@@ -194,12 +133,12 @@ export class FormComponent extends Component {
                   !(this.props.registrationStatus && this.props.registrationStatus.status) &&
                   (
                     <div className="form-group">
-                      <label htmlFor="email">Email address</label>
+                      <label htmlFor="email">LDAP Account</label>
                       <Input
                         name="email"
-                        type="email"
+                        type="text"
                         className="form-control"
-                        validations={[Validation.required, Validation.email]}
+                        validations={[Validation.required]}
                         value={this.state.email}
                         onChange={this.handleInputChange}
                       />
@@ -207,9 +146,9 @@ export class FormComponent extends Component {
                   )
                 }
 
-                {!(this.props.registrationStatus && this.props.registrationStatus.status) && password}
+                {password}
 
-                {!(this.props.registrationStatus && this.props.registrationStatus.status) && buttons}
+                {buttons}
 
               </Form>
 
