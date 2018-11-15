@@ -168,10 +168,12 @@ export const tags = {
     return data.map((tag) => {
       const items = {};
       let value = 0;
-      tag.costs.forEach((item) => {
-        items[item.item] = item.cost;
-        value += item.cost;
-      });
+			if (tag.costs) {
+				tag.costs.forEach((item) => {
+					items[item.item] = item.cost;
+					value += item.cost;
+				});
+			}
       return ({
         key: tag.tag || "No tag",
         value,

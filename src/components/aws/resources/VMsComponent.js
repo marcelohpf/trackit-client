@@ -13,6 +13,13 @@ import Costs from './misc/Costs';
 
 const Tooltip = Misc.Popover;
 
+const commomTags = [
+	"Application",
+	//"Cost Center",
+	"Environment",
+	"Owner",
+];
+
 const getTotalCost = (costs) => {
   let total = 0;
   Object.keys(costs).forEach((key) => total += costs[key]);
@@ -46,6 +53,7 @@ export class VMsComponent extends Component {
 
     const regions = [];
     const types = [];
+		const factors = [];
     const purchasings = [];
     if (instances)
       instances.forEach((instance) => {
@@ -59,10 +67,25 @@ export class VMsComponent extends Component {
           types.push(instance.type);
         if (purchasings.indexOf(instance.purchasing) === -1)
           purchasings.push(instance.purchasing);
+        if (factors.indexOf(instance.normalizationFactor) === -1)
+          factors.push(instance.normalizationFactor);
       });
     regions.sort();
     types.sort();
     purchasings.sort();
+		factors.sort();
+
+		const tags = commomTags.map( (tag, index) => {
+			return {
+				Header: tag,
+				maxWidth: 50,
+				id: "tag-"+index.toString(),
+				accessor: row => (row.tags.hasOwnProperty(tag) ? row.tags[tag] : ""),
+				filterMethod: (filter, row) => {
+					return String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase());
+				},
+			};
+		});
 
     const list = (!loading && !error ? (
       <ReactTable
@@ -73,13 +96,19 @@ export class VMsComponent extends Component {
         columns={[
           {
             Header: 'Tags',
-            accessor: 'tags',
-            maxWidth: 50,
-            filterable: false,
-            Cell: row => ((row.value && Object.keys(row.value).length) ?
-              (<Tags tags={row.value}/>) :
-              (<Tooltip placement="left" icon={<i className="fa fa-tag disabled"/>} tooltip="No tags"/>))
-          },
+						columns: [
+							{
+								Header: "Tags",
+								accessor: 'tags',
+								maxWidth: 50,
+								filterable: false,
+								Cell: row => ((row.value && Object.keys(row.value).length) ?
+									(<Tags tags={row.value}/>) :
+									(<Tooltip placement="left" icon={<i className="fa fa-tag disabled"/>} tooltip="No tags"/>))
+							},
+							...tags,
+						],
+					},
           {
             Header: 'Name',
             id: 'name',
@@ -96,7 +125,7 @@ export class VMsComponent extends Component {
           {
             Header: 'Type',
             accessor: 'type',
-            filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value === row[filter.id])),
+            /*filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value === row[filter.id])),
             Filter: ({ filter, onChange }) => (
               <select
                 onChange={event => onChange(event.target.value)}
@@ -106,7 +135,7 @@ export class VMsComponent extends Component {
                 <option value="all">Show All</option>
                 {types.map((type, index) => (<option key={index} value={type}>{type}</option>))}
               </select>
-            )
+            )*/
           },
           {
             Header: 'Region',
@@ -292,6 +321,21 @@ export class VMsComponent extends Component {
           {
             Header: 'Key Pair',
             accessor: 'keyPair'
+          },
+					{
+            Header: 'Normalization',
+            accessor: 'normalizationFactor',
+            filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value == row[filter.id])),
+            Filter: ({ filter, onChange }) => (
+              <select
+                onChange={event => onChange(event.target.value)}
+                style={{ width: "100%" }}
+                value={filter ? filter.value : "all"}
+              >
+                <option value="all">Show All</option>
+                {factors.map((factor, index) => (<option key={index} value={factor}>{factor}</option>))}
+              </select>
+            )
           }
         ]}
         defaultSorted={[{
