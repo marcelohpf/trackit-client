@@ -46,6 +46,7 @@ export class DatabasesComponent extends Component {
     const availabilityZones = [];
     const types = [];
     const engines = [];
+		const factors = [];
     if (instances)
       instances.forEach((instance) => {
         if (availabilityZones.indexOf(instance.availabilityZone) === -1)
@@ -54,10 +55,13 @@ export class DatabasesComponent extends Component {
           types.push(instance.type);
         if (engines.indexOf(instance.engine) === -1)
           engines.push(instance.engine);
+        if (factors.indexOf(instance.normalizationFactor) === -1)
+          factors.push(instance.normalizationFactor);
       });
     availabilityZones.sort();
     types.sort();
     engines.sort();
+		factors.sort();
 
     const list = (!loading && !error ? (
       <ReactTable
@@ -254,6 +258,21 @@ export class DatabasesComponent extends Component {
                 ) : "N/A")
               }
             ]
+          },
+					{
+            Header: 'Normalization',
+            accessor: 'normalizationFactor',
+            filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value == row[filter.id])),
+            Filter: ({ filter, onChange }) => (
+              <select
+                onChange={event => onChange(event.target.value)}
+                style={{ width: "100%" }}
+                value={filter ? filter.value : "all"}
+              >
+                <option value="all">Show All</option>
+                {factors.map((factor, index) => (<option key={index} value={factor}>{factor}</option>))}
+              </select>
+            )
           },
         ]}
         defaultSorted={[{
