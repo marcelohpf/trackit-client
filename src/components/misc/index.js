@@ -7,6 +7,7 @@ import Dialog from './Dialog';
 import DeleteConfirmation from './DeleteConfirmation';
 import Popover from './Popover';
 import Selector from './Selector';
+import MultiSelector from './MultiSelector';
 import Picture from './Picture';
 import SnackBar from './Snackbar';
 
@@ -20,6 +21,7 @@ export default {
   DeleteConfirmation,
   Popover,
   Selector,
+	MultiSelector,
   Picture,
   SnackBar
 };

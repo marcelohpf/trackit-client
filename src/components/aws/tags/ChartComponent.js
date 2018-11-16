@@ -6,9 +6,11 @@ import TagsChart from './TagsChartComponent';
 
 const TimerangeSelector = Misc.TimerangeSelector;
 const Selector = Misc.Selector;
+const MultiSelector = Misc.MultiSelector;
 const Tooltip = Misc.Popover;
 
 const filters = {
+	normalization: "Normalization Factor",
   product: "Product",
   region: "Region",
   availabilityzone: "Availability Zone",
@@ -53,7 +55,7 @@ class Header extends Component {
       const values = {};
       this.props.keys.values.forEach((key) => {values[key] = key;});
       keys = (
-        <Selector
+        <MultiSelector
           values={values}
           selected={this.props.tag}
           selectValue={this.selectTag}
