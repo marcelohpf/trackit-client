@@ -28,9 +28,11 @@ class MultiSelector extends Component {
 	handleValueSelection = (event) => {
 		const value = event.target.value;
     this.setState((state, props) => {
-    	state.s.push(value);
-			this.props.selectValue(state.s.join(','));
-      return state;
+    	const s = [...state.s];
+			s.push(value)
+			s.sort();
+			this.props.selectValue(s.join(','));
+      return {...state, s};
     });
   }
 
@@ -58,7 +60,7 @@ class MultiSelector extends Component {
 
   render() {
 		const tags = this.state.s.map( (key, index) => (
-					<span key={index} onClick={(event) => this.onClick(event, key)}>
+					<span key={index} style={{marginLeft: "6px"}} onClick={(event) => this.onClick(event, key)}>
 						{key}
 					</span>
 				));
@@ -66,12 +68,13 @@ class MultiSelector extends Component {
 			<option key={index} value={value}>{value}</option>
 		));
     return (
-			<div>
+			<span>
 				{tags}
-			<select onChange={this.handleValueSelection} value='def' >
-				<option disabled value='def' >-</option>
-				{options}
-			</select> </div>);
+				<select onChange={this.handleValueSelection} value='def' >
+					<option disabled value='def' >-</option>
+					{options}
+				</select>
+			</span>);
 	}
 }
 

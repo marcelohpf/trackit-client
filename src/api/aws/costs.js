@@ -24,7 +24,8 @@ export const getTagsKeys = (token, begin, end, accounts=undefined) => {
 };
 
 export const getTagsValues = (token, begin, end, key, filters, accounts=undefined) => {
-  let route = `/costs/tags/values?begin=${begin.format("YYYY-MM-DD")}&end=${end.format("YYYY-MM-DD")}&keys=${key}&by=${filters.join(',')}`;
+	const group = key.split(',').length > 1;
+  let route = `/costs/tags/values?begin=${begin.format("YYYY-MM-DD")}&end=${end.format("YYYY-MM-DD")}&keys=${key}&by=${filters.join(',')}&group=${group}`;
   if (accounts && accounts.length)
     route += `&accounts=${accounts.join(',')}`;
   return call(route, 'GET', null, token);

@@ -174,6 +174,13 @@ export const tags = {
 					value += item.cost;
 				});
 			}
+			// Format a multikey index of format "[a,,b]" to "a, No tag, b"
+			if (tag.tag && tag.tag.startsWith('[') && tag.tag.endsWith(']')) {
+				tag.tag = tag.tag.slice(1, -1)
+					.split(',')
+					.map( item => (item.trim() !== '' ? item : "No tag"))
+					.join(', ')	
+			}
       return ({
         key: tag.tag || "No tag",
         value,
