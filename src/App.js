@@ -114,6 +114,10 @@ export class App extends Component {
               component={checkRedirections(Containers.AWS.Reports)}
             />
             <Route
+              path={this.props.match.url + '/reserves'}
+              component={checkRedirections(Containers.AWS.Reserves)}
+            />
+            <Route
               path={this.props.match.url + "/map"}
               component={checkRedirections(Containers.AWS.ResourcesMap)}
             />

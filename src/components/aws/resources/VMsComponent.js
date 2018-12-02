@@ -18,6 +18,7 @@ const commomTags = [
 	//"Cost Center",
 	"Environment",
 	"Owner",
+	"Name",
 ];
 
 const getTotalCost = (costs) => {
@@ -109,15 +110,6 @@ export class VMsComponent extends Component {
 							...tags,
 						],
 					},
-          {
-            Header: 'Name',
-            id: 'name',
-            accessor: row => (row.tags.hasOwnProperty("Name") ? row.tags.Name : ""),
-            minWidth: 150,
-            filterMethod: (filter, row) =>
-              (row.tags.hasOwnProperty("Name") ? String(row.tags.Name) : "").toLowerCase().includes(filter.value),
-            Cell: row => (<strong>{row.value}</strong>)
-          },
           {
             Header: 'ID',
             accessor: 'id',
@@ -325,7 +317,7 @@ export class VMsComponent extends Component {
 					{
             Header: 'Normalization',
             accessor: 'normalizationFactor',
-            filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value == row[filter.id])),
+            filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value === row[filter.id])),
             Filter: ({ filter, onChange }) => (
               <select
                 onChange={event => onChange(event.target.value)}

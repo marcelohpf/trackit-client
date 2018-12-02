@@ -19,7 +19,7 @@ class MultiSelector extends Component {
 	}
 
 	componentWillReceiveProps = (nextProp) => {
-		if (this.state.s.length == 0 && this.props.selected !== nextProp.selected) {
+		if (this.state.s.length === 0 && this.props.selected !== nextProp.selected) {
 			const s = nextProp.selected.split(',');
 			this.setState({s});
 		}

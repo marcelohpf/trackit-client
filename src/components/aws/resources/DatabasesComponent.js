@@ -262,7 +262,7 @@ export class DatabasesComponent extends Component {
 					{
             Header: 'Normalization',
             accessor: 'normalizationFactor',
-            filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value == row[filter.id])),
+            filterMethod: (filter, row) => (filter.value === "all" ? true : (filter.value === row[filter.id])),
             Filter: ({ filter, onChange }) => (
               <select
                 onChange={event => onChange(event.target.value)}

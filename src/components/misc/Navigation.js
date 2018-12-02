@@ -162,6 +162,13 @@ export class Navigation extends Component {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className="nav-link" to='/app/reserves' activeClassName="active">
+								<i className="menu-icon fa fa-handshake-o"/>
+                <span className="hide-menu">Reservations</span>
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
               <NavLink className="nav-link" to='/app/reports' activeClassName="active">
                 <i className="menu-icon fa fa-file-text"/>
                 <span className="hide-menu">AWS Reports</span>

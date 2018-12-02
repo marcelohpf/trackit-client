@@ -73,12 +73,22 @@ export default {
       EC2: {
         status: true,
         value: null
-      },
-      RDS: {
+				},
+				RDS: {
         status: true,
         value: null
       }
     },
+		reserves: {
+      dates: {
+        startDate: moment().startOf('months'),
+        endDate: moment().endOf('months')
+      },
+			RI: {
+				status: true,
+				value: null
+			}
+		},
   },
   events: {
     dates: {
