@@ -7,6 +7,7 @@ import { getS3DataSaga, saveS3DatesSaga, loadS3DatesSaga, cleanS3DatesSaga } fro
 import { getReportsSaga, clearReportsSaga, downloadReportSaga } from './reportsSaga';
 import { getEC2ReportSaga, getRDSReportSaga } from './resourcesSaga';
 import { getRIReportSaga, } from './reservesSaga';
+import { getUsagesReportSaga, } from './usagesSaga';
 import { getMapCostsSaga } from './mapSaga';
 import { getTagsKeysSaga, getTagsValuesSaga, initTagsChartsSaga, loadTagsChartsSaga, saveTagsChartsSaga, cleanTagsChartsSaga } from './tagsSaga';
 import Constants from '../../constants';
@@ -135,6 +136,10 @@ export function* watchGetRDSReport() {
 
 export function* watchGetRIReport() {
 	yield takeLatest(Constants.AWS_RESERVES_GET_RESERVED, getRIReportSaga);
+}
+
+export function* watchGetUsageReport() {
+	yield takeLatest(Constants.AWS_GET_USAGES_DATA, getUsagesReportSaga);
 }
 
 export function* watchGetMapCosts() {

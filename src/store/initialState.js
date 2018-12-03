@@ -89,6 +89,16 @@ export default {
 				value: null
 			}
 		},
+		usages: {
+			dates: {
+        startDate: moment().startOf('months'),
+        endDate: moment().endOf('months')
+			},
+			discounted: {
+				status: true,
+				value: null,
+			},
+		},
   },
   events: {
     dates: {

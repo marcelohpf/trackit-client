@@ -6,6 +6,7 @@ import Map from './mapTypes';
 import Resources from './resourcesTypes';
 import Tags from './tagsTypes';
 import Reserves from './reservesTypes';
+import Usages from './usagesTypes';
 
 export default {
 	...Accounts,
@@ -16,4 +17,5 @@ export default {
   ...Map,
 	...Tags,
 	...Reserves,
+	...Usages,
 };

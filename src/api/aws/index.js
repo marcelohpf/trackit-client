@@ -4,6 +4,7 @@ import * as Costs from './costs';
 import * as Reports from './reports';
 import * as Resources from './resources';
 import * as Reserves from './reserves';
+import * as Usages from './usages';
 
 export default {
   Accounts,
@@ -12,4 +13,5 @@ export default {
   Reports,
   Resources,
 	Reserves,
+	Usages,
 };

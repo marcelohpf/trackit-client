@@ -167,6 +167,12 @@ export class Navigation extends Component {
                 <span className="hide-menu">Reservations</span>
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to='/app/usages' activeClassName="active">
+								<i className="menu-icon fa fa-list-alt"></i>
+                <span className="hide-menu">Usages</span>
+              </NavLink>
+            </li>
 
             <li className="nav-item">
               <NavLink className="nav-link" to='/app/reports' activeClassName="active">

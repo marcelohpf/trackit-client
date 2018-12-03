@@ -7,6 +7,7 @@ import resources from './resources'
 import map from './map';
 import tags from './tags';
 import reserves from './reserves';
+import usages from './usages';
 
 export default combineReducers({
   accounts,
@@ -17,4 +18,5 @@ export default combineReducers({
   resources,
   tags,
 	reserves,
+	usages,
 });

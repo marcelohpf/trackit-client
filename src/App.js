@@ -126,6 +126,10 @@ export class App extends Component {
               component={hasAccounts ? Containers.AWS.Resources : redirectToSetup}
             />
             <Route
+              path={this.props.match.url + '/usages'}
+              component={checkRedirections(Containers.AWS.Usages)}
+            />
+            <Route
               path={this.props.match.url + "/tags"}
               component={checkRedirections(Containers.AWS.Tags)}
             />

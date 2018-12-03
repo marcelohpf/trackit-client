@@ -5,6 +5,7 @@ import Resources from './ResourcesContainer';
 import ResourcesMap from './ResourcesMapContainer';
 import Tags from './TagsContainer';
 import Reserves from './ReservesContainer';
+import Usages from './UsagesContainer';
 
 export default {
   S3Analytics,
@@ -14,4 +15,5 @@ export default {
   ResourcesMap,
   Tags,
 	Reserves,
+	Usages,
 };

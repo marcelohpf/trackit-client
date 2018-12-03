@@ -62,10 +62,10 @@ class TagsChartComponent extends Component {
     });
     const itemsColumns = itemsList.map((item) => ({
       Header: (item && item.length ? item : `No ${this.props.filter}`),
-      accessor: 'items',
+      accessor: row => row.items.hasOwnProperty(item) ? row.items[item] : 0,
       id: item,
-      sortMethod: (a, b) => (a.hasOwnProperty(item) && b.hasOwnProperty(item) && a[item] > b[item] ? 1 : -1),
-      Cell: row => (<span className="total-cell">{formatPrice(row.value[item] || 0)}</span>)
+      sortMethod: (a, b) => (a > b ? 1 : -1),
+      Cell: row => (<span className="total-cell">{formatPrice(row.value)}</span>)
     }));
 
     /* istanbul ignore next */

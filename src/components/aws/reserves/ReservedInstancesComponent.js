@@ -5,6 +5,7 @@ import Actions from "../../../actions";
 import Spinner from "react-spinkit";
 import ReactTable from 'react-table';
 import moment from 'moment';
+import { formatRemainDuration, formatPrice } from '../../../common/formatters';
 
 export class ReservedInstancesComponent extends Component {
 	componentWillMount = () => {
@@ -16,28 +17,6 @@ export class ReservedInstancesComponent extends Component {
       nextProps.getData(nextProps.dates);
   }
 
-	formatRemainDuration = (duration) => {
-		if (duration < 0) {
-			return 'No time remaining'
-		}
-		let remain = '';
-		if (duration.years()) {
-			const pluralize = duration.years() > 1?'s':''
-			remain += `${duration.years()} year${pluralize} `
-		}
-		if (duration.months()) {
-			const pluralize = duration.months() > 1?'s':''
-			remain += `${duration.months()} month${pluralize} `
-		}
-		if (duration.days()) {
-			const pluralize = duration.days() > 1?'s':''
-			remain += `${duration.days()} day${pluralize} `
-		}
-		if (remain === ""){
-			remain = `${duration.hours()}:${duration.minutes()}`
-		}
-		return remain
-	}
 
 	render() {
     const loading = (!this.props.data.status ? (<Spinner className="spinner" name='circle'/>) : null);
@@ -60,7 +39,7 @@ export class ReservedInstancesComponent extends Component {
 							id: "remain",
 							accessor: row => (moment.duration(moment(row.endDate).diff(moment()))),
 							sortMethod: (a, b) => (a.asSeconds() > b.asSeconds() ? 1: -1),
-							Cell: row => this.formatRemainDuration(row.value),
+							Cell: row => formatRemainDuration(row.value),
 						},
 						{
 							Header: "State",
@@ -75,7 +54,7 @@ export class ReservedInstancesComponent extends Component {
 							Header: "Price",
 							id:  "fixedPrice",
 							accessor: row => (row.instanceCount * row.fixedPrice),
-							Cell: row => (row.value ? row.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'): "0,00")
+							Cell: row => (row.value ? formatPrice(row.value): "0,00")
 						},
 						{
 							Header: "family",
