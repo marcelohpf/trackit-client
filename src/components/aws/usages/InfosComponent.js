@@ -43,6 +43,8 @@ class InfosComponent extends Component {
     if (!totals)
       return (<h4 className="no-data">No data available.</h4>);
 
+		const total = (totals.totalUsage + totals.totalDiscountUsage) || 1
+
     /* istanbul ignore next */
     return (
       <div>
@@ -57,7 +59,7 @@ class InfosComponent extends Component {
         <div className="s3-card">
 					<h3 className="no-margin no-padding font-light">
 						<i className="menu-icon fa fa-tachometer red-color"/>
-						{formatNumber(totals.totalUsage)}
+						{formatNumber(100*totals.totalUsage/total)}%
 					</h3>
           <h4 className="card-label p-l-10 m-b-0">
             total noramlized usage
@@ -75,7 +77,7 @@ class InfosComponent extends Component {
         <div className="s3-card">
 					<h3 className="no-margin no-padding font-light">
 						<i className="menu-icon fa fa-tachometer blue-color"/>
-						{formatNumber(totals.totalDiscountUsage)}
+						{formatNumber(100*totals.totalDiscountUsage/total)}%
 					</h3>
           <h4 className="card-label p-l-10 m-b-0">
             total discount usage
